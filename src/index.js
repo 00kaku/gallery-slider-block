@@ -12,7 +12,7 @@ registerBlockType( 'custom-block/galley-slider-block', {
 	icon: 'images-alt2',
 	category: 'media',
 	edit: () => {
-		return <p>hello Editor!!!!</p>;
+		return <p>Hello Editor!!!!</p>;
 	},
 	save: () => {
 		return <p>Hello Save !!!</p>
