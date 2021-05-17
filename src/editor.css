@@ -1,0 +1,21 @@
+.btn{
+	width:130px;
+	border:1px solid #222;
+	margin-left: calc(50% - 65px);
+	border-radius: 5px;
+}
+
+.slide__thumbnails{
+	display:grid;
+	grid-template-columns: repeat(auto-fill, minmax(50px, 50px));
+	column-gap: 10px;
+	max-width: 100%;
+	margin:auto;
+	margin-top:20px;
+}
+
+.thumbnail__container{
+	height:100px;
+	background-size: contain;
+	background-repeat: no-repeat;
+}

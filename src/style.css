@@ -1,7 +1,7 @@
 .slider__container{
 	display: flex;
 	height: 350px;
-	background-color: rgb(87, 84, 84);
+	background-color: rgb(0, 0, 0, 0.3);
 }
 .slider__control{
 	width: 10%;
@@ -13,18 +13,32 @@
 .slider__control__icon{
 	width: 100%;
     font-size: 40px;
-    background: rgba(255, 255, 255, 1);
+	height: 40px !important;
     height: max-content;
+	color: #fff;
 	margin-top: 155px;
 	opacity: 0.5;
 }
+
+.slider__control__icon:hover{
+	background-color: #000;
+}
+
 .nav__arrow__text{
 	margin-left: 5px;
-}
-.slider__control__icon:hover{
-	opacity: 0.8;
 }
 
 .slider__slider{
 	width:80%;
+}
+
+@media screen and ( max-width:767px )
+{
+	.slider__control__icon{
+		margin-top: 130px;
+
+	}
+	.slider__container{
+		height: 300px;
+	}
 }

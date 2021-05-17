@@ -1,8 +1,14 @@
 import { registerBlockType } from '@wordpress/blocks';
-import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, FormToggle } from '@wordpress/components';
+import {
+	useBlockProps,
+	InspectorControls,
+	MediaUpload,
+	MediaUploadCheck,
+} from '@wordpress/block-editor';
+import { PanelBody, FormToggle, Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import Slider from './components/Slider';
+import SlideThumbnail from './components/SlideThumbnail';
 /**
  * The function register our block with the cofiguration passed in the second argument. The 'edit' function in the object
  * the editor component presented to the user to make changes and the 'save' function is what will be presented on the screen.
@@ -17,6 +23,7 @@ registerBlockType( 'custom-block/galley-slider-block', {
 	attributes: {
 		slides: {
 			type: Array,
+			default: [],
 		},
 		showNavControls: {
 			type: Array,
@@ -24,11 +31,11 @@ registerBlockType( 'custom-block/galley-slider-block', {
 		},
 	},
 	edit: ( { attributes, setAttributes } ) => {
-		const { showNavControls } = attributes;
+		const { showNavControls, slides } = attributes;
 		return (
 			<div { ...useBlockProps() }>
 				<InspectorControls>
-					<PanelBody title="Navigation Arrows">
+					<PanelBody title="Navigation Arrows" initialOpen={ false }>
 						<FormToggle
 							checked={ showNavControls }
 							onChange={ () =>
@@ -40,6 +47,37 @@ registerBlockType( 'custom-block/galley-slider-block', {
 						<span className="nav__arrow__text">
 							{ showNavControls ? ' HIDE' : ' SHOW' }
 						</span>
+					</PanelBody>
+					<PanelBody title="Slides" initialOpen={ true }>
+						<MediaUploadCheck>
+							<MediaUpload
+								onSelect={ ( media ) => {
+									const tempArray = [ ...slides ];
+									tempArray.push( {
+										url: media.url,
+										caption: '',
+										id: 'media.id',
+									} );
+									setAttributes( { slides: tempArray } );
+								} }
+								allowedTypes={ [ 'image', 'audio', 'video' ] }
+								value={ attributes.mediaId }
+								render={ ( { open } ) => (
+									<Button onClick={ open } className="btn">
+										Add more slides
+									</Button>
+								) }
+							/>
+						</MediaUploadCheck>
+						<div className="slide__thumbnails">
+							{ slides?.length > 0 &&
+								slides.map( ( slide ) => (
+									<SlideThumbnail
+										slide={ slide }
+										key={ slide.id }
+									/>
+								) ) }
+						</div>
 					</PanelBody>
 				</InspectorControls>
 				<Slider attributes={ attributes } />
