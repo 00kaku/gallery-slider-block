@@ -219,12 +219,25 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var SlideThumbnail = function SlideThumbnail(_ref) {
-  var slide = _ref.slide;
+  var slide = _ref.slide,
+      setAttributes = _ref.setAttributes;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     key: slide.id,
     className: "thumbnail__container",
     style: {
       backgroundImage: "url(".concat(slide.url, ")")
+    },
+    onClick: function onClick() {
+      return setAttributes({
+        showSlideDetails: true
+      });
+    },
+    role: "button",
+    tabIndex: 0,
+    onKeyDown: function onKeyDown(event) {
+      return event.key === 'Enter' && setAttributes({
+        showSlideDetails: true
+      });
     }
   });
 };
@@ -319,6 +332,13 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('cus
     showNavControls: {
       type: Array,
       default: true
+    },
+    showSlideDetails: {
+      type: Boolean,
+      default: false
+    },
+    currentSlide: {
+      type: Object
     }
   },
   edit: function edit(_ref) {
@@ -327,7 +347,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('cus
     var showNavControls = attributes.showNavControls,
         slides = attributes.slides;
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["useBlockProps"])(), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["PanelBody"], {
-      title: "Navigation Arrows",
+      title: "Navigation ArrThis is my modalows",
       initialOpen: false
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["FormToggle"], {
       checked: showNavControls,
@@ -368,10 +388,22 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('cus
     }, (slides === null || slides === void 0 ? void 0 : slides.length) > 0 && slides.map(function (slide) {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_components_SlideThumbnail__WEBPACK_IMPORTED_MODULE_7__["default"], {
         slide: slide,
-        key: slide.id
+        key: slide.id,
+        setAttributes: setAttributes
       });
     })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_components_Slider__WEBPACK_IMPORTED_MODULE_6__["default"], {
       attributes: attributes
+    }), attributes.showSlideDetails && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["Modal"], {
+      style: {
+        width: '850px',
+        height: '500px'
+      },
+      title: "Slide Details",
+      onRequestClose: function onRequestClose() {
+        return setAttributes({
+          showSlideDetails: false
+        });
+      }
     }));
   },
   save: function save(_ref3) {

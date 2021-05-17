@@ -5,7 +5,7 @@ import {
 	MediaUpload,
 	MediaUploadCheck,
 } from '@wordpress/block-editor';
-import { PanelBody, FormToggle, Button } from '@wordpress/components';
+import { PanelBody, FormToggle, Button, Modal } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import Slider from './components/Slider';
 import SlideThumbnail from './components/SlideThumbnail';
@@ -29,13 +29,23 @@ registerBlockType( 'custom-block/galley-slider-block', {
 			type: Array,
 			default: true,
 		},
+		showSlideDetails: {
+			type: Boolean,
+			default: false,
+		},
+		currentSlide: {
+			type: Object,
+		},
 	},
 	edit: ( { attributes, setAttributes } ) => {
 		const { showNavControls, slides } = attributes;
 		return (
 			<div { ...useBlockProps() }>
 				<InspectorControls>
-					<PanelBody title="Navigation Arrows" initialOpen={ false }>
+					<PanelBody
+						title="Navigation ArrThis is my modalows"
+						initialOpen={ false }
+					>
 						<FormToggle
 							checked={ showNavControls }
 							onChange={ () =>
@@ -75,12 +85,24 @@ registerBlockType( 'custom-block/galley-slider-block', {
 									<SlideThumbnail
 										slide={ slide }
 										key={ slide.id }
+										setAttributes={ setAttributes }
 									/>
 								) ) }
 						</div>
 					</PanelBody>
 				</InspectorControls>
 				<Slider attributes={ attributes } />
+				{ attributes.showSlideDetails && (
+					<Modal
+						style={ { width: '850px', height: '500px' } }
+						title="Slide Details"
+						onRequestClose={ () =>
+							setAttributes( {
+								showSlideDetails: false,
+							} )
+						}
+					></Modal>
+				) }
 			</div>
 		);
 	},
