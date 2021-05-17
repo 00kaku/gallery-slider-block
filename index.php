@@ -46,7 +46,7 @@ function gallery_slider_block_enqueue_scripts() {
 	);
 
 	register_block_type(
-		'quote/selector-block',
+		'custom-block/galley-slider-block',
 		array(
 			'api_version'   => 2,
 			'editor_script' => 'gallery-slider-block',
