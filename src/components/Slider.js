@@ -1,5 +1,5 @@
 const Slider = ( { attributes } ) => {
-	const { showNavControls } = attributes;
+	const { slides, showNavControls } = attributes;
 	return (
 		<div className="slider__container">
 			<div
@@ -9,7 +9,19 @@ const Slider = ( { attributes } ) => {
 			>
 				<span className="dashicons dashicons-arrow-left-alt2 slider__control__icon"></span>
 			</div>
-			<div className="slider__slider"></div>
+			<div className="slider__slider">
+				{ slides?.length > 0 && (
+					<img
+						style={ {
+							height: '100%',
+							width: '100%',
+							objectFit: 'contain',
+						} }
+						src={ slides[ 0 ].url }
+						alt={ `Galley` }
+					/>
+				) }
+			</div>
 			<div
 				className={ `slider__control ${
 					! showNavControls && 'noShow'

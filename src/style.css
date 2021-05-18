@@ -1,7 +1,7 @@
 .slider__container{
 	display: flex;
 	height: 350px;
-	background-color: rgb(0, 0, 0, 0.3);
+	background-color: rgb(0, 0, 0);
 }
 .slider__control{
 	width: 10%;
@@ -17,11 +17,10 @@
     height: max-content;
 	color: #fff;
 	margin-top: 155px;
-	opacity: 0.5;
 }
 
 .slider__control__icon:hover{
-	background-color: #000;
+	background-color: rgba(255, 255, 255, 0.5);
 }
 
 .nav__arrow__text{
@@ -30,6 +29,8 @@
 
 .slider__slider{
 	width:80%;
+	margin: auto;
+	height:100%;
 }
 
 @media screen and ( max-width:767px )

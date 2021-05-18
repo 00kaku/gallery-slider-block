@@ -63,15 +63,20 @@ registerBlockType( 'custom-block/galley-slider-block', {
 								onSelect={ ( media ) => {
 									const tempArray = [ ...slides ];
 									const index = tempArray.length;
-									tempArray.push( {
+									const currentSlide = {
 										url: media.url,
 										caption: '',
 										id: media.id,
 										index,
+									};
+									tempArray.push( currentSlide );
+									setAttributes( {
+										slides: tempArray,
+										currentSlide,
+										showSlideDetails: true,
 									} );
-									setAttributes( { slides: tempArray } );
 								} }
-								allowedTypes={ [ 'image', 'audio', 'video' ] }
+								allowedTypes={ [ 'image', 'video' ] }
 								value={ attributes.mediaId }
 								render={ ( { open } ) => (
 									<Button onClick={ open } className="btn">
