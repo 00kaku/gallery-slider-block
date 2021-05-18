@@ -5,6 +5,12 @@
 	border-radius: 5px;
 }
 
+.btn:hover{
+	background-color: rgb(30, 124, 186);
+	color:#fff;
+	border:1px solid #fff;
+}
+
 .slide__thumbnails{
 	display:grid;
 	grid-template-columns: repeat(auto-fill, minmax(50px, 50px));
@@ -12,10 +18,60 @@
 	max-width: 100%;
 	margin:auto;
 	margin-top:20px;
+	row-gap: 10px;
 }
 
 .thumbnail__container{
 	height:100px;
-	background-size: contain;
-	background-repeat: no-repeat;
+	cursor: pointer;
+	background-size: cover;
+	background-position: center;
+}
+
+.thumbnail__container:hover{
+	transform: scale(1.05);
+	box-shadow: 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.modal__container{
+	width: 850px;
+	height: 550px;
+	padding:0;
+}
+
+.modal__modal{
+	display:flex;
+	width: 100%;
+	margin: auto;
+	height: 85%;
+}
+
+.modal__image{
+	flex: 1.5;
+	max-width: 400px;
+	height:80%;
+	border-radius: 5px;
+	background-size: cover;
+	background-position: center;
+	box-shadow: 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal__details{
+	flex: 2;
+	height:100%;
+}
+@media screen and (max-width:767px)
+{
+	.modal__container{
+		width:98%;
+		height: 350px;
+		top:20%;
+		margin:auto;
+	}
+	.modal__modal{
+		height: 75%;
+	}
+	.components-modal__content{
+		padding:10px;
+	}
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       Gallery Slider Block Plugin
- * Plugin URI:        https://github.com/00kaku/
+ * Plugin URI:       https://github.com/00kaku/gallery-slider-block
  * Description:       A block to create a gallery slider by uploading images and videos.
  * Version:           1.0
  * Requires at least: 5.2

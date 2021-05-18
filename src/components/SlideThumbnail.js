@@ -4,12 +4,17 @@ const SlideThumbnail = ( { slide, setAttributes } ) => {
 			key={ slide.id }
 			className="thumbnail__container"
 			style={ { backgroundImage: `url(${ slide.url })` } }
-			onClick={ () => setAttributes( { showSlideDetails: true } ) }
+			onClick={ () => {
+				setAttributes( {
+					currentSlide: slide,
+					showSlideDetails: true,
+				} );
+			} }
 			role="button"
 			tabIndex={ 0 }
 			onKeyDown={ ( event ) =>
 				event.key === 'Enter' &&
-				setAttributes( { showSlideDetails: true } )
+				setAttributes( { currentSlide: slide, showSlideDetails: true } )
 			}
 		></div>
 	);

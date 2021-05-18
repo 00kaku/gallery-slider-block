@@ -5,10 +5,11 @@ import {
 	MediaUpload,
 	MediaUploadCheck,
 } from '@wordpress/block-editor';
-import { PanelBody, FormToggle, Button, Modal } from '@wordpress/components';
+import { PanelBody, FormToggle, Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import Slider from './components/Slider';
 import SlideThumbnail from './components/SlideThumbnail';
+import Modal from './components/Modal';
 /**
  * The function register our block with the cofiguration passed in the second argument. The 'edit' function in the object
  * the editor component presented to the user to make changes and the 'save' function is what will be presented on the screen.
@@ -35,6 +36,7 @@ registerBlockType( 'custom-block/galley-slider-block', {
 		},
 		currentSlide: {
 			type: Object,
+			default: {},
 		},
 	},
 	edit: ( { attributes, setAttributes } ) => {
@@ -42,10 +44,7 @@ registerBlockType( 'custom-block/galley-slider-block', {
 		return (
 			<div { ...useBlockProps() }>
 				<InspectorControls>
-					<PanelBody
-						title="Navigation ArrThis is my modalows"
-						initialOpen={ false }
-					>
+					<PanelBody title="Navigation Arrows" initialOpen={ false }>
 						<FormToggle
 							checked={ showNavControls }
 							onChange={ () =>
@@ -63,10 +62,12 @@ registerBlockType( 'custom-block/galley-slider-block', {
 							<MediaUpload
 								onSelect={ ( media ) => {
 									const tempArray = [ ...slides ];
+									const index = tempArray.length;
 									tempArray.push( {
 										url: media.url,
 										caption: '',
-										id: 'media.id',
+										id: media.id,
+										index,
 									} );
 									setAttributes( { slides: tempArray } );
 								} }
@@ -94,14 +95,9 @@ registerBlockType( 'custom-block/galley-slider-block', {
 				<Slider attributes={ attributes } />
 				{ attributes.showSlideDetails && (
 					<Modal
-						style={ { width: '850px', height: '500px' } }
-						title="Slide Details"
-						onRequestClose={ () =>
-							setAttributes( {
-								showSlideDetails: false,
-							} )
-						}
-					></Modal>
+						attributes={ attributes }
+						setAttributes={ setAttributes }
+					/>
 				) }
 			</div>
 		);

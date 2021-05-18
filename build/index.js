@@ -205,6 +205,50 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
+/***/ "./src/components/Modal.js":
+/*!*********************************!*\
+  !*** ./src/components/Modal.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+var ModalComponent = function ModalComponent(_ref) {
+  var attributes = _ref.attributes,
+      setAttributes = _ref.setAttributes;
+  var currentSlide = attributes.currentSlide;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["Modal"], {
+    title: "Slide Number: ".concat(currentSlide.index + 1),
+    onRequestClose: function onRequestClose() {
+      return setAttributes({
+        showSlideDetails: false
+      });
+    },
+    className: "modal__container"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "modal__modal"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "modal__image",
+    style: {
+      backgroundImage: "url(".concat(currentSlide.url, ")")
+    }
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "modal__details"
+  })));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (ModalComponent);
+
+/***/ }),
+
 /***/ "./src/components/SlideThumbnail.js":
 /*!******************************************!*\
   !*** ./src/components/SlideThumbnail.js ***!
@@ -228,7 +272,8 @@ var SlideThumbnail = function SlideThumbnail(_ref) {
       backgroundImage: "url(".concat(slide.url, ")")
     },
     onClick: function onClick() {
-      return setAttributes({
+      setAttributes({
+        currentSlide: slide,
         showSlideDetails: true
       });
     },
@@ -236,6 +281,7 @@ var SlideThumbnail = function SlideThumbnail(_ref) {
     tabIndex: 0,
     onKeyDown: function onKeyDown(event) {
       return event.key === 'Enter' && setAttributes({
+        currentSlide: slide,
         showSlideDetails: true
       });
     }
@@ -304,6 +350,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _components_Slider__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Slider */ "./src/components/Slider.js");
 /* harmony import */ var _components_SlideThumbnail__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/SlideThumbnail */ "./src/components/SlideThumbnail.js");
+/* harmony import */ var _components_Modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/Modal */ "./src/components/Modal.js");
+
 
 
 
@@ -338,7 +386,8 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('cus
       default: false
     },
     currentSlide: {
-      type: Object
+      type: Object,
+      default: {}
     }
   },
   edit: function edit(_ref) {
@@ -347,7 +396,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('cus
     var showNavControls = attributes.showNavControls,
         slides = attributes.slides;
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["useBlockProps"])(), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["PanelBody"], {
-      title: "Navigation ArrThis is my modalows",
+      title: "Navigation Arrows",
       initialOpen: false
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["FormToggle"], {
       checked: showNavControls,
@@ -365,10 +414,12 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('cus
       onSelect: function onSelect(media) {
         var tempArray = _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(slides);
 
+        var index = tempArray.length;
         tempArray.push({
           url: media.url,
           caption: '',
-          id: 'media.id'
+          id: media.id,
+          index: index
         });
         setAttributes({
           slides: tempArray
@@ -393,17 +444,9 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('cus
       });
     })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_components_Slider__WEBPACK_IMPORTED_MODULE_6__["default"], {
       attributes: attributes
-    }), attributes.showSlideDetails && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["Modal"], {
-      style: {
-        width: '850px',
-        height: '500px'
-      },
-      title: "Slide Details",
-      onRequestClose: function onRequestClose() {
-        return setAttributes({
-          showSlideDetails: false
-        });
-      }
+    }), attributes.showSlideDetails && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_components_Modal__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      attributes: attributes,
+      setAttributes: setAttributes
     }));
   },
   save: function save(_ref3) {
