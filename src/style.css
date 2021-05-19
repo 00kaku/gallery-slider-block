@@ -1,6 +1,7 @@
 .slider__container{
 	height: 350px;
 	background-color: rgb(0, 0, 0);
+	position: relative;
 }
 
 .slider__control{

@@ -5,7 +5,12 @@ import {
 	MediaUpload,
 	MediaUploadCheck,
 } from '@wordpress/block-editor';
-import { PanelBody, FormToggle, Button } from '@wordpress/components';
+import {
+	PanelBody,
+	FormToggle,
+	Button,
+	RangeControl,
+} from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import Slider from './components/Slider';
 import SlideThumbnail from './components/SlideThumbnail';
@@ -38,9 +43,17 @@ registerBlockType( 'custom-block/galley-slider-block', {
 			type: Object,
 			default: {},
 		},
+		slideIndex: {
+			type: Number,
+			default: 0,
+		},
+		transition: {
+			type: Number,
+			default: 1000,
+		},
 	},
 	edit: ( { attributes, setAttributes } ) => {
-		const { showNavControls, slides } = attributes;
+		const { showNavControls, slides, transition } = attributes;
 		return (
 			<div { ...useBlockProps() }>
 				<InspectorControls>
@@ -96,8 +109,24 @@ registerBlockType( 'custom-block/galley-slider-block', {
 								) ) }
 						</div>
 					</PanelBody>
+					<PanelBody title="Transition Speed" initialOpen={ false }>
+						<RangeControl
+							label="Speed in seconds"
+							value={ transition / 1000 }
+							onChange={ ( value ) =>
+								setAttributes( {
+									transition: value * 1000,
+								} )
+							}
+							min={ 1 }
+							max={ 10 }
+						/>
+					</PanelBody>
 				</InspectorControls>
-				<Slider attributes={ attributes } />
+				<Slider
+					attributes={ attributes }
+					setAttributes={ setAttributes }
+				/>
 				{ attributes.showSlideDetails && (
 					<Modal
 						attributes={ attributes }
@@ -107,7 +136,7 @@ registerBlockType( 'custom-block/galley-slider-block', {
 			</div>
 		);
 	},
-	save: ( { attributes } ) => {
-		return <Slider attributes={ attributes } />;
+	save: () => {
+		return null;
 	},
 } );
