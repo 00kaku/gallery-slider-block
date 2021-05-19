@@ -1,4 +1,6 @@
 import { Modal } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
+
 const ModalComponent = ( { attributes, setAttributes } ) => {
 	const { slides, currentSlide } = attributes;
 	const handleMove = ( index, value ) => {
@@ -28,7 +30,7 @@ const ModalComponent = ( { attributes, setAttributes } ) => {
 	};
 	return (
 		<Modal
-			title={ `Slide Number: ${ currentSlide.index + 1 }` }
+			title={ __( `Slide Number: ${ currentSlide.index + 1 }` ) }
 			onRequestClose={ () =>
 				setAttributes( {
 					showSlideDetails: false,
@@ -43,7 +45,7 @@ const ModalComponent = ( { attributes, setAttributes } ) => {
 				></div>
 				<div className="modal__details">
 					<p>
-						<b>Caption:</b>
+						<b>{ __( 'Caption:' ) }</b>
 					</p>
 					<textarea
 						className="caption__input"
@@ -51,6 +53,10 @@ const ModalComponent = ( { attributes, setAttributes } ) => {
 							handleCaptionChange( currentSlide.index, event );
 						} }
 						value={ currentSlide.caption }
+						maxLength={ 25 }
+						placeholder={ __(
+							'Caption should be of maximum 25 characters…'
+						) }
 					></textarea>
 					<div className="modal__controls">
 						<button
@@ -60,7 +66,7 @@ const ModalComponent = ( { attributes, setAttributes } ) => {
 							}
 							disabled={ currentSlide.index === 0 }
 						>
-							Move slide up
+							{ __( 'Move slide up' ) }
 						</button>
 						<button
 							className="btn btn-move"
@@ -71,13 +77,13 @@ const ModalComponent = ( { attributes, setAttributes } ) => {
 								currentSlide.index === slides.length - 1
 							}
 						>
-							Move slide down
+							{ __( 'Move slide down' ) }
 						</button>
 						<button
 							className="btn btn-remove"
 							onClick={ () => handleRemove( currentSlide.index ) }
 						>
-							Remove Slide
+							{ __( 'Remove Slide' ) }
 						</button>
 					</div>
 				</div>

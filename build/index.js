@@ -220,6 +220,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
+
 
 
 
@@ -268,7 +271,7 @@ var ModalComponent = function ModalComponent(_ref) {
   };
 
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Modal"], {
-    title: "Slide Number: ".concat(currentSlide.index + 1),
+    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])("Slide Number: ".concat(currentSlide.index + 1)),
     onRequestClose: function onRequestClose() {
       return setAttributes({
         showSlideDetails: false
@@ -284,12 +287,14 @@ var ModalComponent = function ModalComponent(_ref) {
     }
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
     className: "modal__details"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("b", null, "Caption:")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("textarea", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("b", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Caption:'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("textarea", {
     className: "caption__input",
     onChange: function onChange(event) {
       handleCaptionChange(currentSlide.index, event);
     },
-    value: currentSlide.caption
+    value: currentSlide.caption,
+    maxLength: 25,
+    placeholder: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Caption should be of maximum 25 characters…')
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
     className: "modal__controls"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("button", {
@@ -298,18 +303,18 @@ var ModalComponent = function ModalComponent(_ref) {
       return handleMove(currentSlide.index, -1);
     },
     disabled: currentSlide.index === 0
-  }, "Move slide up"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("button", {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Move slide up')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("button", {
     className: "btn btn-move",
     onClick: function onClick() {
       return handleMove(currentSlide.index, 1);
     },
     disabled: currentSlide.index === slides.length - 1
-  }, "Move slide down"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("button", {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Move slide down')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("button", {
     className: "btn btn-remove",
     onClick: function onClick() {
       return handleRemove(currentSlide.index);
     }
-  }, "Remove Slide")))));
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Remove Slide'))))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (ModalComponent);
@@ -370,6 +375,9 @@ var SlideThumbnail = function SlideThumbnail(_ref) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+
 
 
 var Slider = function Slider(_ref) {
@@ -379,21 +387,23 @@ var Slider = function Slider(_ref) {
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "slider__container"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "slider__control ".concat(!showNavControls && 'noShow')
+    className: "slider__control left ".concat(!showNavControls && 'noShow')
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
     className: "dashicons dashicons-arrow-left-alt2 slider__control__icon"
   })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "slider__slider"
-  }, (slides === null || slides === void 0 ? void 0 : slides.length) > 0 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+  }, (slides === null || slides === void 0 ? void 0 : slides.length) > 0 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
     style: {
       height: '100%',
       width: '100%',
       objectFit: 'contain'
     },
     src: slides[0].url,
-    alt: "Galley"
-  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "slider__control ".concat(!showNavControls && 'noShow')
+    alt: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])(slides[0].caption)
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "slider__caption"
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])(slides[0].caption)))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "slider__control right ".concat(!showNavControls && 'noShow')
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
     className: "dashicons dashicons-arrow-right-alt2 slider__control__icon"
   })));
